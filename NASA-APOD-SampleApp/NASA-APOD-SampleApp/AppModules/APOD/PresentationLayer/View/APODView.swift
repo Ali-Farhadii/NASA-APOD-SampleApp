@@ -93,6 +93,8 @@ struct APODView: View {
 }
 
 #Preview {
-    let viewModel = APODViewModel()
-    return APODView(viewModel: viewModel)
+    let apodURLSession = APODURLSessionDataSource(networkService: URLSessionService())
+    let repository = APODRepository(remoteDataSource: apodURLSession)
+    let viewModel = APODViewModel(repository: repository)
+    APODView(viewModel: viewModel)
 }

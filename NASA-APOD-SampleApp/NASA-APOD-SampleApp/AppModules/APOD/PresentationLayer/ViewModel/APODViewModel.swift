@@ -17,7 +17,14 @@ class APODViewModel: ObservableObject {
     }
     
     func fetchAPOD(with date: Date) {
-        
+        Task {
+            do {
+                let response = try await repository.fetchAPOD(with: Date())
+                print(response)
+            } catch {
+                print(error)
+            }
+        }
     }
     
 }

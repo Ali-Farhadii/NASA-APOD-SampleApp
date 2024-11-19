@@ -13,7 +13,7 @@ protocol APODRepositoryProtocol {
 
 struct APODRepository: APODRepositoryProtocol {
     
-    let remoteDataSource: APODRemoteDataSource
+    private let remoteDataSource: APODRemoteDataSource
     
     init(remoteDataSource: APODRemoteDataSource) {
         self.remoteDataSource = remoteDataSource

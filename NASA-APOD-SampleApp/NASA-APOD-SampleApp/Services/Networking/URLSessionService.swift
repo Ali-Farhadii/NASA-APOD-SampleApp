@@ -9,6 +9,7 @@ import Foundation
 
 struct URLSessionService: NetworkService {
     
+    //TODO: Make it better for mocking and unit testing
     let urlSession = URLSession.shared
     
     func request<T: Decodable>(with endpoint: Endpoint) async throws -> T {
