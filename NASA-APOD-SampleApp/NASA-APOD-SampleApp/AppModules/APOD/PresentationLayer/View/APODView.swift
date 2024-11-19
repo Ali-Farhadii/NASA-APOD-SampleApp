@@ -54,6 +54,9 @@ struct APODView: View {
     var imageView: some View {
         AsyncImage(url: viewModel.apodModel.url) { image in
             image
+                .resizable()
+                .scaledToFit()
+                .clipShape(.rect(cornerRadius: 15))
         } placeholder: {
             VStack {
                 ProgressView()
