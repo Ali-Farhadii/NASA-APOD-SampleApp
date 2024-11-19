@@ -10,6 +10,11 @@ import Foundation
 class APODViewModel: ObservableObject {
     
     @Published var imageURL: URL?
+    private let repository: APODRepository
+    
+    init(repository: APODRepository) {
+        self.repository = repository
+    }
     
     func fetchAPOD(with date: Date) {
         
