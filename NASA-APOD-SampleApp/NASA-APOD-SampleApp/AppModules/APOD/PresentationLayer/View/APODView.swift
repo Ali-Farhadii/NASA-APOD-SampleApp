@@ -9,6 +9,7 @@ import SwiftUI
 
 struct APODView: View {
     
+    @ObservedObject var viewModel: APODViewModel
     @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
     
@@ -43,14 +44,15 @@ struct APODView: View {
                 todayToolbarItem
                 calendarToolbarItem
             }
+            // TODO: task or onAppear?
             .task {
-                
+                viewModel.fetchAPOD(with: selectedDate)
             }
         }
     }
     
     var imageView: some View {
-        AsyncImage(url: nil) { image in
+        AsyncImage(url: viewModel.imageURL) { image in
             image
         } placeholder: {
             VStack {
@@ -74,13 +76,16 @@ struct APODView: View {
                                displayedComponents: [.date])
                     .blendMode(.destinationOver)
                 }
+                .onChange(of: selectedDate) { newValue in
+                    viewModel.fetchAPOD(with: newValue)
+                }
         }
     }
     
     var todayToolbarItem: ToolbarItem<Void, some View> {
         ToolbarItem(placement: .topBarLeading) {
             Button("Today") {
-                
+                viewModel.fetchAPOD(with: Date())
             }
         }
     }
@@ -88,5 +93,6 @@ struct APODView: View {
 }
 
 #Preview {
-    APODView()
+    let viewModel = APODViewModel()
+    return APODView(viewModel: viewModel)
 }

@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class APODViewModel: ObservableObject {
+    
+    @Published var imageURL: URL?
+    
+    func fetchAPOD(with date: Date) {
+        
+    }
+    
+}
