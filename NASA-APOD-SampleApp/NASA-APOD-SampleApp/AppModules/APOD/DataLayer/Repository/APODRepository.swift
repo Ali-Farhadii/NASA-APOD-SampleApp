@@ -12,7 +12,14 @@ protocol APODRepositoryProtocol {
 }
 
 struct APODRepository: APODRepositoryProtocol {
+    
+    let remoteDataSource: APODRemoteDataSource
+    
+    init(remoteDataSource: APODRemoteDataSource) {
+        self.remoteDataSource = remoteDataSource
+    }
+    
     func fetchAPOD(with date: Date) async throws -> APODBusinessModel {
-        APODBusinessModel()
+        try await remoteDataSource.fetchAPOD(with: date)
     }
 }
