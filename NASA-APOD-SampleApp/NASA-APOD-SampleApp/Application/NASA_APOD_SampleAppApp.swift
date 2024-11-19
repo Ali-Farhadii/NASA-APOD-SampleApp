@@ -11,7 +11,7 @@ import SwiftUI
 struct NASA_APOD_SampleAppApp: App {
     var body: some Scene {
         WindowGroup {
-            APODView()
+            APODView(viewModel: APODViewModel())
         }
     }
 }
