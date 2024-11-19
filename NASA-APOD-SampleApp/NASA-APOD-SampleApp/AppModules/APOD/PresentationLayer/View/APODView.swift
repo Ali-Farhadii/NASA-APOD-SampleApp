@@ -20,18 +20,18 @@ struct APODView: View {
                     imageView
                     
                     // TODO: Fix duplication of .frame(maxWidth)
-                    Text("Title")
+                    Text(viewModel.apodModel.title)
                         .frame(maxWidth: .infinity,
                                alignment: .leading)
                         .font(.title.bold())
                     
-                    Text("Copyright")
+                    Text(viewModel.apodModel.copyright)
                         .frame(maxWidth: .infinity,
                                alignment: .leading)
                         .font(.subheadline.bold())
                         .foregroundStyle(.secondary)
                     
-                    Text("Description")
+                    Text(viewModel.apodModel.explanation)
                         .frame(maxWidth: .infinity,
                                alignment: .leading)
                         .font(.callout)
@@ -52,7 +52,7 @@ struct APODView: View {
     }
     
     var imageView: some View {
-        AsyncImage(url: viewModel.imageURL) { image in
+        AsyncImage(url: viewModel.apodModel.url) { image in
             image
         } placeholder: {
             VStack {
@@ -87,6 +87,7 @@ struct APODView: View {
             Button("Today") {
                 viewModel.fetchAPOD(with: Date())
             }
+            .disabled(selectedDate == Date())
         }
     }
     
