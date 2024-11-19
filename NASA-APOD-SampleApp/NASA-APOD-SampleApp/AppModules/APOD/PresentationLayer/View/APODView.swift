@@ -18,29 +18,14 @@ struct APODView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     imageView
-                    
-                    // TODO: Fix duplication of .frame(maxWidth)
-                    Text(viewModel.apodModel.title)
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .font(.title.bold())
-                    
-                    Text(viewModel.apodModel.copyright)
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .font(.subheadline.bold())
-                        .foregroundStyle(.secondary)
-                    
-                    Text(viewModel.apodModel.explanation)
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .font(.callout)
+                    title
+                    copyright
+                    explanation
                 }
                 .padding()
             }
-            .navigationTitle("18 November 2024")
+            .navigationTitle(selectedDate.toString())
             .toolbar {
-                // TODO: Show today only when selected data is not today
                 todayToolbarItem
                 calendarToolbarItem
             }
@@ -66,6 +51,29 @@ struct APODView: View {
             }
             .frame(height: 250)
         }
+    }
+    
+    // TODO: Fix duplication of .frame(maxWidth)
+    var title: some View {
+        Text(viewModel.apodModel.title)
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.title.bold())
+    }
+    
+    var copyright: some View {
+        Text(viewModel.apodModel.copyright)
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.subheadline.bold())
+            .foregroundStyle(.secondary)
+    }
+    
+    var explanation: some View {
+        Text(viewModel.apodModel.explanation)
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.callout)
     }
     
     var calendarToolbarItem: ToolbarItem<Void, some View> {
