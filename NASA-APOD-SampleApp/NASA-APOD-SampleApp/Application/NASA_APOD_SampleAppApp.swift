@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct NASA_APOD_SampleAppApp: App {
+    
+    let repository = APODRepository(remoteDataSource: APODURLSessionDataSource(networkService: URLSessionService()))
+    
     var body: some Scene {
         WindowGroup {
-            APODView(viewModel: APODViewModel())
+            APODView(viewModel: APODViewModel(repository: repository))
         }
     }
 }

@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+protocol APODRepositoryProtocol {
+    func fetchAPOD(with date: Date) async throws -> APODBusinessModel
+}
+
+struct APODRepository: APODRepositoryProtocol {
+    
+    private let remoteDataSource: APODRemoteDataSource
+    
+    init(remoteDataSource: APODRemoteDataSource) {
+        self.remoteDataSource = remoteDataSource
+    }
+    
+    func fetchAPOD(with date: Date) async throws -> APODBusinessModel {
+        try await remoteDataSource.fetchAPOD(with: date)
+    }
+}
