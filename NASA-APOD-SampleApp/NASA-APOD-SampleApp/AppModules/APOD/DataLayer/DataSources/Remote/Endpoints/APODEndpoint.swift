@@ -12,5 +12,12 @@ struct APODEndpoint: Endpoint {
     var httpMethod: HTTPMethod = .get
     var httpHeader: [String : String]? = nil
     var httpBody: (any Encodable)? = nil
-    var queryParams: [String : String]? = ["api_key": Constants.apiKey]
+    var queryParams: [String : String]?
+    
+    init(selectedDate: String) {
+        queryParams = [
+            "api_key": Constants.apiKey,
+            "date": selectedDate
+        ]
+    }
 }

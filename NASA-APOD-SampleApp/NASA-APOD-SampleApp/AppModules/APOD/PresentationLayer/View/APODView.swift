@@ -10,6 +10,7 @@ import SwiftUI
 struct APODView: View {
     
     @ObservedObject var viewModel: APODViewModel
+    //TODO: Hide/show date picker with below boolean
     @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
     
@@ -88,7 +89,7 @@ struct APODView: View {
                     .blendMode(.destinationOver)
                 }
                 .onChange(of: selectedDate) { newValue in
-                    viewModel.fetchAPOD(with: newValue)
+                    viewModel.refreshAPOD(with: newValue)
                 }
         }
     }

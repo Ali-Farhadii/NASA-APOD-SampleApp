@@ -20,12 +20,20 @@ class APODViewModel: ObservableObject {
     func fetchAPOD(with date: Date) {
         Task {
             do {
-                let response = try await repository.fetchAPOD(with: Date())
+                let formattedDate = date.changeFormat(to: "yyyy-MM-dd")
+                let response = try await repository.fetchAPOD(with: formattedDate)
                 apodModel = mapToAPODPresentationModel(with: response)
+                print(response)
             } catch {
                 print(error)
             }
         }
+    }
+    
+    @MainActor
+    func refreshAPOD(with date: Date) {
+        apodModel = .placeholder()
+        fetchAPOD(with: date)
     }
     
     func mapToAPODPresentationModel(with response: APODBusinessModel) -> APODPresentationModel {

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol APODRepositoryProtocol {
-    func fetchAPOD(with date: Date) async throws -> APODBusinessModel
+    func fetchAPOD(with date: String) async throws -> APODBusinessModel
 }
 
 struct APODRepository: APODRepositoryProtocol {
@@ -19,7 +19,7 @@ struct APODRepository: APODRepositoryProtocol {
         self.remoteDataSource = remoteDataSource
     }
     
-    func fetchAPOD(with date: Date) async throws -> APODBusinessModel {
+    func fetchAPOD(with date: String) async throws -> APODBusinessModel {
         try await remoteDataSource.fetchAPOD(with: date)
     }
 }
