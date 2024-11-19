@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol NetworkService {
+    func request<T: Decodable>(with endpoint: Endpoint) async throws -> T
+}
