@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+protocol APODRepositoryProtocol {
+    func fetchAPOD(with date: Date) async throws -> APODBusinessModel
+}
+
+struct APODRepository: APODRepositoryProtocol {
+    func fetchAPOD(with date: Date) async throws -> APODBusinessModel {
+        APODBusinessModel()
+    }
+}
