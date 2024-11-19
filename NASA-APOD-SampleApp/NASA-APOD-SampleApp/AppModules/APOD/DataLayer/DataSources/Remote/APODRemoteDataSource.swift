@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+protocol APODRemoteDataSource {
+    func fetchAPOD(with date: Date) async throws -> APODBusinessModel
+}
+
+struct APODURLSessionDataSource: APODRemoteDataSource {
+    
+    let networkService: NetworkService
+    
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+    }
+    
+    func fetchAPOD(with date: Date) async throws -> APODBusinessModel {
+        APODBusinessModel()
+    }
+}
