@@ -13,18 +13,34 @@ struct APODView: View {
     @ObservedObject var viewModel: APODViewModel
     @State private var selectedDate: Date = Date()
     @State private var isShowErrorAlert: Bool = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
-                    mediaView
-                    title
-                    copyright
-                    explanation
+                if horizontalSizeClass == .compact {
+                    VStack(spacing: 16) {
+                        mediaView
+                        title
+                        copyright
+                        explanation
+                    }
+                    .padding()
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                } else {
+                    HStack(alignment: .top, spacing: 16) {
+                        mediaView
+                            .frame(width: UIScreen.main.bounds.width / 2)
+                        VStack(alignment: .leading, spacing: 16) {
+                            title
+                            copyright
+                            explanation
+                        }
+                        .padding(.horizontal)
+                    }
+                    .padding()
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
                 }
-                .padding()
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
             }
             .navigationTitle(selectedDate.toString())
             .toolbar {
