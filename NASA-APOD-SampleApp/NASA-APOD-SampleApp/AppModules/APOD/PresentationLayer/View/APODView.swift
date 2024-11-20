@@ -13,17 +13,34 @@ struct APODView: View {
     @ObservedObject var viewModel: APODViewModel
     @State private var selectedDate: Date = Date()
     @State private var isShowErrorAlert: Bool = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
-                    mediaView
-                    title
-                    copyright
-                    explanation
+                if horizontalSizeClass == .compact {
+                    VStack(spacing: 16) {
+                        mediaView
+                        title
+                        copyright
+                        explanation
+                    }
+                    .padding()
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                } else {
+                    HStack(alignment: .top, spacing: 16) {
+                        mediaView
+                            .frame(width: UIScreen.main.bounds.width / 2)
+                        VStack(alignment: .leading, spacing: 16) {
+                            title
+                            copyright
+                            explanation
+                        }
+                        .padding(.horizontal)
+                    }
+                    .padding()
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
                 }
-                .padding()
             }
             .navigationTitle(selectedDate.toString())
             .toolbar {
@@ -46,6 +63,8 @@ struct APODView: View {
                 }
             } message: {
                 Text(viewModel.errorModel?.msg ?? "")
+                    .foregroundStyle(.primary)
+                    .font(.body)
             }
         }
     }
@@ -93,6 +112,7 @@ struct APODView: View {
             .frame(maxWidth: .infinity,
                    alignment: .leading)
             .font(.title.bold())
+            .foregroundStyle(.primary)
     }
     
     var copyright: some View {
@@ -107,7 +127,8 @@ struct APODView: View {
         Text(viewModel.apodModel.explanation)
             .frame(maxWidth: .infinity,
                    alignment: .leading)
-            .font(.callout)
+            .font(.body)
+            .foregroundStyle(.primary)
     }
     
     var calendarToolbarItem: ToolbarItem<Void, some View> {
@@ -120,6 +141,8 @@ struct APODView: View {
                                in: ...Date(),
                                displayedComponents: [.date])
                     .blendMode(.destinationOver)
+                    .foregroundStyle(.primary)
+                    .font(.body)
                 }
                 .onChange(of: selectedDate) { newValue in
                     viewModel.refreshAPOD(with: newValue)
@@ -133,7 +156,7 @@ struct APODView: View {
                 selectedDate = Date()
                 viewModel.fetchAPOD(with: selectedDate)
             }
-            .disabled(selectedDate == Date())
+            .disabled(selectedDate.equalDay(with: Date()))
         }
     }
     

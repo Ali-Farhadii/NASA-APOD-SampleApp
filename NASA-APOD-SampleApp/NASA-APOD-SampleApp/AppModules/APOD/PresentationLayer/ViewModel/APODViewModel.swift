@@ -10,6 +10,7 @@ import Foundation
 class APODViewModel: ObservableObject {
     
     @Published var apodModel: APODPresentationModel = .placeholder()
+    @Published var isLoading: Bool = false
     @Published var errorModel: GenericErrorModel?
     private let repository: APODRepositoryProtocol
     
@@ -20,14 +21,18 @@ class APODViewModel: ObservableObject {
     @MainActor
     func fetchAPOD(with date: Date) {
         errorModel = nil
+        isLoading = true
         Task {
             do {
                 let formattedDate = date.changeFormat(to: "yyyy-MM-dd")
                 let response = try await repository.fetchAPOD(with: formattedDate)
+                isLoading = false
                 apodModel = mapToAPODPresentationModel(with: response)
             } catch let error as NetworkError {
+                isLoading = false
                 handleError(error)
             } catch {
+                isLoading = false
                 errorModel = GenericErrorModel(code: 400,
                                                msg: "Unexpected error")
             }
