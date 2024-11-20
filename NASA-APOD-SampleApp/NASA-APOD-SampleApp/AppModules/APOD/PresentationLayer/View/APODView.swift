@@ -47,6 +47,7 @@ struct APODView: View {
             } message: {
                 Text(viewModel.errorModel?.msg ?? "")
                     .foregroundStyle(.primary)
+                    .font(.body)
             }
         }
     }
@@ -109,7 +110,7 @@ struct APODView: View {
         Text(viewModel.apodModel.explanation)
             .frame(maxWidth: .infinity,
                    alignment: .leading)
-            .font(.callout)
+            .font(.body)
             .foregroundStyle(.primary)
     }
     
@@ -124,6 +125,7 @@ struct APODView: View {
                                displayedComponents: [.date])
                     .blendMode(.destinationOver)
                     .foregroundStyle(.primary)
+                    .font(.body)
                 }
                 .onChange(of: selectedDate) { newValue in
                     viewModel.refreshAPOD(with: newValue)
