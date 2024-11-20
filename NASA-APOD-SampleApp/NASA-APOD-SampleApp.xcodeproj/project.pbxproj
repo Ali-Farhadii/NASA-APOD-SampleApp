@@ -14,19 +14,11 @@
 			remoteGlobalIDString = 2256E8A72CE75B97000CD5E6;
 			remoteInfo = "NASA-APOD-SampleApp";
 		};
-		2256E8C32CE75B99000CD5E6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2256E8A02CE75B97000CD5E6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2256E8A72CE75B97000CD5E6;
-			remoteInfo = "NASA-APOD-SampleApp";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2256E8A82CE75B97000CD5E6 /* NASA-APOD-SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NASA-APOD-SampleApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2256E8B82CE75B99000CD5E6 /* NASA-APOD-SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NASA-APOD-SampleAppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2256E8C22CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NASA-APOD-SampleAppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,11 +30,6 @@
 		2256E8BB2CE75B99000CD5E6 /* NASA-APOD-SampleAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "NASA-APOD-SampleAppTests";
-			sourceTree = "<group>";
-		};
-		2256E8C52CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "NASA-APOD-SampleAppUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2256E8BF2CE75B99000CD5E6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +57,6 @@
 			children = (
 				2256E8AA2CE75B97000CD5E6 /* NASA-APOD-SampleApp */,
 				2256E8BB2CE75B99000CD5E6 /* NASA-APOD-SampleAppTests */,
-				2256E8C52CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests */,
 				2256E8A92CE75B97000CD5E6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +66,6 @@
 			children = (
 				2256E8A82CE75B97000CD5E6 /* NASA-APOD-SampleApp.app */,
 				2256E8B82CE75B99000CD5E6 /* NASA-APOD-SampleAppTests.xctest */,
-				2256E8C22CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,29 +118,6 @@
 			productReference = 2256E8B82CE75B99000CD5E6 /* NASA-APOD-SampleAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2256E8C12CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2256E8D22CE75B99000CD5E6 /* Build configuration list for PBXNativeTarget "NASA-APOD-SampleAppUITests" */;
-			buildPhases = (
-				2256E8BE2CE75B99000CD5E6 /* Sources */,
-				2256E8BF2CE75B99000CD5E6 /* Frameworks */,
-				2256E8C02CE75B99000CD5E6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2256E8C42CE75B99000CD5E6 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				2256E8C52CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests */,
-			);
-			name = "NASA-APOD-SampleAppUITests";
-			packageProductDependencies = (
-			);
-			productName = "NASA-APOD-SampleAppUITests";
-			productReference = 2256E8C22CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,10 +132,6 @@
 						CreatedOnToolsVersion = 16.1;
 					};
 					2256E8B72CE75B99000CD5E6 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 2256E8A72CE75B97000CD5E6;
-					};
-					2256E8C12CE75B99000CD5E6 = {
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = 2256E8A72CE75B97000CD5E6;
 					};
@@ -202,7 +153,6 @@
 			targets = (
 				2256E8A72CE75B97000CD5E6 /* NASA-APOD-SampleApp */,
 				2256E8B72CE75B99000CD5E6 /* NASA-APOD-SampleAppTests */,
-				2256E8C12CE75B99000CD5E6 /* NASA-APOD-SampleAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2256E8B62CE75B99000CD5E6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2256E8C02CE75B99000CD5E6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,13 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2256E8BE2CE75B99000CD5E6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,11 +196,6 @@
 			isa = PBXTargetDependency;
 			target = 2256E8A72CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
 			targetProxy = 2256E8B92CE75B99000CD5E6 /* PBXContainerItemProxy */;
-		};
-		2256E8C42CE75B99000CD5E6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2256E8A72CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
-			targetProxy = 2256E8C32CE75B99000CD5E6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -498,44 +429,6 @@
 			};
 			name = Release;
 		};
-		2256E8D32CE75B99000CD5E6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 2256E8AA2CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
-			baseConfigurationReferenceRelativePath = XcodeConfigs/Development.xcconfig;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9FNNS73DWP;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.NASA-APOD-SampleAppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "NASA-APOD-SampleApp";
-			};
-			name = Debug;
-		};
-		2256E8D42CE75B99000CD5E6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 2256E8AA2CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
-			baseConfigurationReferenceRelativePath = XcodeConfigs/Release.xcconfig;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9FNNS73DWP;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.NASA-APOD-SampleAppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "NASA-APOD-SampleApp";
-			};
-			name = Release;
-		};
 		2256E9222CECC0BE000CD5E6 /* QE */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 2256E8AA2CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
@@ -654,25 +547,6 @@
 			};
 			name = QE;
 		};
-		2256E9252CECC0BE000CD5E6 /* QE */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 2256E8AA2CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
-			baseConfigurationReferenceRelativePath = XcodeConfigs/QE.xcconfig;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9FNNS73DWP;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.NASA-APOD-SampleAppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "NASA-APOD-SampleApp";
-			};
-			name = QE;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -702,16 +576,6 @@
 				2256E8D02CE75B99000CD5E6 /* Debug */,
 				2256E9242CECC0BE000CD5E6 /* QE */,
 				2256E8D12CE75B99000CD5E6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2256E8D22CE75B99000CD5E6 /* Build configuration list for PBXNativeTarget "NASA-APOD-SampleAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2256E8D32CE75B99000CD5E6 /* Debug */,
-				2256E9252CECC0BE000CD5E6 /* QE */,
-				2256E8D42CE75B99000CD5E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

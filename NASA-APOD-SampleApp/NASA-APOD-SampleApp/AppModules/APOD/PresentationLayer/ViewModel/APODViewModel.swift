@@ -11,9 +11,9 @@ class APODViewModel: ObservableObject {
     
     @Published var apodModel: APODPresentationModel = .placeholder()
     @Published var errorModel: GenericErrorModel?
-    private let repository: APODRepository
+    private let repository: APODRepositoryProtocol
     
-    init(repository: APODRepository) {
+    init(repository: APODRepositoryProtocol) {
         self.repository = repository
     }
 
@@ -41,26 +41,25 @@ class APODViewModel: ObservableObject {
     }
     
     private func mapToAPODPresentationModel(with response: APODBusinessModel) -> APODPresentationModel {
-        guard let imageURL = URL(string: response.url),
-                MediaType(rawValue: response.mediaType) != .other else {
-            
-            return MediaType(rawValue: response.mediaType) == .other ?
-            APODPresentationModel(title: response.title,
-                                  copyright: "Copyright: \(response.copyright)",
-                                  date: response.date,
-                                  explanation: response.explanation,
-                                  url: nil,
-                                  mediaType: .other) : .placeholder()
+        guard let imageURL = URL(string: response.url) else {
+            if MediaType(rawValue: response.mediaType) == .other {
+                return APODPresentationModel(title: response.title,
+                                             copyright: "Copyright: \(response.copyright)",
+                                             date: response.date,
+                                             explanation: response.explanation,
+                                             url: nil,
+                                             mediaType: .other)
+            } else {
+                return .placeholder()
+            }
         }
         
-        return APODPresentationModel(
-            title: response.title,
-            copyright: "Copyright: \(response.copyright)",
-            date: response.date,
-            explanation: response.explanation,
-            url: imageURL,
-            mediaType: MediaType(rawValue: response.mediaType) ?? .other
-        )
+        return APODPresentationModel(title: response.title,
+                                     copyright: "Copyright: \(response.copyright)",
+                                     date: response.date,
+                                     explanation: response.explanation,
+                                     url: imageURL,
+                                     mediaType: MediaType(rawValue: response.mediaType) ?? .other)
     }
     
     private func handleError(_ error: NetworkError) {
