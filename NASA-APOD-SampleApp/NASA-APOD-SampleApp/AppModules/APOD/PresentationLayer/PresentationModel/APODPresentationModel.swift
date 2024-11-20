@@ -24,3 +24,10 @@ struct APODPresentationModel {
               mediaType: .other)
     }
 }
+
+extension APODPresentationModel: Equatable {
+    public static func == (lhs: APODPresentationModel,
+                           rhs: APODPresentationModel) -> Bool {
+        lhs.title == rhs.title
+    }
+}
