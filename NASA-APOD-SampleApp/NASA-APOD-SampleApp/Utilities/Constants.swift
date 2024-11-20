@@ -10,5 +10,5 @@ import Foundation
 //TODO: Connect these constants to Xcode configs file
 struct Constants {
     static let baseURL = "https://api.nasa.gov"
-    static let apiKey = "DEMO_KEY"
+    static let apiKey = "egq8Cs4NeS3HKBl99YzEmYbO3kz02ZNhmHMZQV1e" // "DEMO_KEY"
 }

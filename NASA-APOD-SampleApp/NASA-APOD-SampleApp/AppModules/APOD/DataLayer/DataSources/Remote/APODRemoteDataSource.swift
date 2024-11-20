@@ -27,10 +27,10 @@ struct APODURLSessionDataSource: APODRemoteDataSource {
     
     func mapToAPODBusinessModel(_ response: APODDecodableModel) -> APODBusinessModel {
         APODBusinessModel(title: response.title,
-                          copyright: response.copyright,
+                          copyright: response.copyright ?? "None",
                           date: response.date,
                           explanation: response.explanation,
-                          url: response.url,
+                          url: response.url ?? "",
                           mediaType: response.mediaType)
     }
 }
