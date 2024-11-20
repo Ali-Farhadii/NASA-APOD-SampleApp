@@ -13,16 +13,26 @@ struct URLSessionService: NetworkService {
     let urlSession = URLSession.shared
     
     func request<T: Decodable>(with endpoint: Endpoint) async throws -> T {
-        guard let urlRequest = endpoint.createURLRequest() else { throw NetworkError.badRequest }
+        guard let urlRequest = endpoint.createURLRequest() else {
+            let errorModel = GenericErrorModel(code: 400,
+                                               msg: "Bad request")
+            throw NetworkError.badRequest(errorModel)
+        }
         let (data, response) = try await urlSession.data(for: urlRequest)
         
         guard let response = response as? HTTPURLResponse,
-              response.statusCode == 200 else { throw NetworkError.invalidResponse }
+              response.statusCode == 200 else {
+            let errorModel: GenericErrorModel = decodeData(data) ?? GenericErrorModel(code: 404,
+                                                                                      msg: "Invalid response")
+            throw NetworkError.invalidResponse(errorModel)
+        }
         
         if let decodedData: T = decodeData(data) {
             return decodedData
         } else {
-            throw NetworkError.decodeFailed
+            let errorModel = GenericErrorModel(code: 402,
+                                               msg: "Invalid data")
+            throw NetworkError.decodeFailed(errorModel)
         }
     }
     

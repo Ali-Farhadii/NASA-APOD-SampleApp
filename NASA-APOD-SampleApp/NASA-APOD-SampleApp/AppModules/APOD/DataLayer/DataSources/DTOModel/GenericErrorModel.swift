@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GenericErrorModel: Decodable {
+struct GenericErrorModel: Decodable, Error, Equatable {
     let code: Int
     let msg: String
 }

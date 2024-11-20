@@ -10,6 +10,7 @@ import Foundation
 class APODViewModel: ObservableObject {
     
     @Published var apodModel: APODPresentationModel = .placeholder()
+    @Published var errorModel: GenericErrorModel?
     private let repository: APODRepository
     
     init(repository: APODRepository) {
@@ -18,14 +19,17 @@ class APODViewModel: ObservableObject {
 
     @MainActor
     func fetchAPOD(with date: Date) {
+        errorModel = nil
         Task {
             do {
                 let formattedDate = date.changeFormat(to: "yyyy-MM-dd")
                 let response = try await repository.fetchAPOD(with: formattedDate)
                 apodModel = mapToAPODPresentationModel(with: response)
-                print(response)
+            } catch let error as NetworkError {
+                handleError(error)
             } catch {
-                print(error)
+                errorModel = GenericErrorModel(code: 400,
+                                               msg: "Unexpected error")
             }
         }
     }
@@ -36,7 +40,8 @@ class APODViewModel: ObservableObject {
         fetchAPOD(with: date)
     }
     
-    func mapToAPODPresentationModel(with response: APODBusinessModel) -> APODPresentationModel {
+    private func mapToAPODPresentationModel(with response: APODBusinessModel) -> APODPresentationModel {
+        //TODO: Error handling for invalid URL
         guard let imageURL = URL(string: response.url) else { return .placeholder() }
         
         return APODPresentationModel(title: response.title,
@@ -44,7 +49,18 @@ class APODViewModel: ObservableObject {
                                      date: response.date,
                                      explanation: response.explanation,
                                      url: imageURL,
-                                     mediaType: MediaType(rawValue: response.mediaType) ?? .image)
+                                     mediaType: MediaType(rawValue: response.mediaType) ?? .other)
+    }
+    
+    private func handleError(_ error: NetworkError) {
+        switch error {
+        case .decodeFailed(let errorModel):
+            self.errorModel = errorModel
+        case .invalidResponse(let errorModel):
+            self.errorModel = errorModel
+        case .badRequest(let errorModel):
+            self.errorModel = errorModel
+        }
     }
     
 }

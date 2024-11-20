@@ -12,6 +12,7 @@ struct APODView: View {
     
     @ObservedObject var viewModel: APODViewModel
     @State private var selectedDate: Date = Date()
+    @State private var isShowErrorAlert: Bool = false
     
     var body: some View {
         NavigationView {
@@ -32,6 +33,20 @@ struct APODView: View {
             // TODO: task or onAppear?
             .task {
                 viewModel.fetchAPOD(with: selectedDate)
+            }
+            .onChange(of: viewModel.errorModel) { newValue in
+                isShowErrorAlert = newValue != nil
+            }
+            .alert("Something went wrong.",
+                   isPresented: $isShowErrorAlert) {
+                Button("OK") {
+                    isShowErrorAlert = false
+                }
+                Button("Retry") {
+                    viewModel.fetchAPOD(with: selectedDate)
+                }
+            } message: {
+                Text(viewModel.errorModel?.msg ?? "")
             }
         }
     }
@@ -116,7 +131,8 @@ struct APODView: View {
     var todayToolbarItem: ToolbarItem<Void, some View> {
         ToolbarItem(placement: .topBarLeading) {
             Button("Today") {
-                viewModel.fetchAPOD(with: Date())
+                selectedDate = Date()
+                viewModel.fetchAPOD(with: selectedDate)
             }
             .disabled(selectedDate == Date())
         }
