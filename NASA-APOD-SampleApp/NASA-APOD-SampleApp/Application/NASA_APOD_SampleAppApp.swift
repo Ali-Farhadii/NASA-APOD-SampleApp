@@ -10,16 +10,17 @@ import SwiftUI
 @main
 struct NASA_APOD_SampleAppApp: App {
     
-    let repository = APODRepository(remoteDataSource: APODURLSessionDataSource(networkService: URLSessionService()))
+    @StateObject var navController = NavigationController()
+    let appDependencyContainer = AppDependencyContainer()
     
     var body: some Scene {
         WindowGroup {
-            TabView {
-                APODView(viewModel: APODViewModel(repository: repository))
-                    .tabItem {
-                        Label("APOD", systemImage: "globe.asia.australia")
-                    }
+            NavigationStack(path: $navController.path) {
+                TabView {
+                    appDependencyContainer.apodDependencyContainer.rootView
+                }
             }
+            .environmentObject(navController)
         }
     }
     
