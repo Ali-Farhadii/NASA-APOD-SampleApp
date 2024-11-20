@@ -78,7 +78,7 @@ struct APODView: View {
                 }
             case .video:
                 if let url = viewModel.apodModel.url {
-                    VideoPlayer(player: AVPlayer(url: url))
+                    YouTubeView(videoURL: url)
                         .frame(height: 250)
                 }
             case .other:
