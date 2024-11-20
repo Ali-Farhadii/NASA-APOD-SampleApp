@@ -6,21 +6,18 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct APODView: View {
     
     @ObservedObject var viewModel: APODViewModel
-    //TODO: Hide/show date picker with below boolean
-    @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 16) {
-                    if let url = viewModel.apodModel.url {
-                        getImageView(with: url)
-                    }
+                    mediaView
                     title
                     copyright
                     explanation
@@ -35,6 +32,25 @@ struct APODView: View {
             // TODO: task or onAppear?
             .task {
                 viewModel.fetchAPOD(with: selectedDate)
+            }
+        }
+    }
+    
+    var mediaView: some View {
+        VStack {
+            switch viewModel.apodModel.mediaType {
+            case .image:
+                if let url = viewModel.apodModel.url {
+                    getImageView(with: url)
+                }
+            case .video:
+                if let url = viewModel.apodModel.url {
+                    VideoPlayer(player: AVPlayer(url: url))
+                        .frame(height: 250)
+                }
+            case .other:
+                Image(systemName: "photo")
+                    .frame(height: 250)
             }
         }
     }
@@ -58,7 +74,6 @@ struct APODView: View {
         }
     }
     
-    // TODO: Fix duplication of .frame(maxWidth)
     var title: some View {
         Text(viewModel.apodModel.title)
             .frame(maxWidth: .infinity,
