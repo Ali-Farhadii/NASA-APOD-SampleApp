@@ -18,7 +18,9 @@ struct APODView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 16) {
-                    imageView
+                    if let url = viewModel.apodModel.url {
+                        getImageView(with: url)
+                    }
                     title
                     copyright
                     explanation
@@ -37,20 +39,22 @@ struct APODView: View {
         }
     }
     
-    var imageView: some View {
-        AsyncImage(url: viewModel.apodModel.url) { image in
-            image
-                .resizable()
-                .scaledToFit()
-                .clipShape(.rect(cornerRadius: 15))
-        } placeholder: {
-            VStack {
-                ProgressView()
-                Text("Loading...")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+    @ViewBuilder func getImageView(with url: URL) -> some View {
+        CacheAsyncImage(url: url) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(.rect(cornerRadius: 15))
+            } else {
+                VStack {
+                    ProgressView()
+                    Text("Loading...")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(height: 250)
             }
-            .frame(height: 250)
         }
     }
     
