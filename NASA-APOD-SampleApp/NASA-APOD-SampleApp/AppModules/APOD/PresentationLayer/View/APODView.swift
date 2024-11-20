@@ -46,6 +46,7 @@ struct APODView: View {
                 }
             } message: {
                 Text(viewModel.errorModel?.msg ?? "")
+                    .foregroundStyle(.primary)
             }
         }
     }
@@ -93,6 +94,7 @@ struct APODView: View {
             .frame(maxWidth: .infinity,
                    alignment: .leading)
             .font(.title.bold())
+            .foregroundStyle(.primary)
     }
     
     var copyright: some View {
@@ -108,6 +110,7 @@ struct APODView: View {
             .frame(maxWidth: .infinity,
                    alignment: .leading)
             .font(.callout)
+            .foregroundStyle(.primary)
     }
     
     var calendarToolbarItem: ToolbarItem<Void, some View> {
@@ -120,6 +123,7 @@ struct APODView: View {
                                in: ...Date(),
                                displayedComponents: [.date])
                     .blendMode(.destinationOver)
+                    .foregroundStyle(.primary)
                 }
                 .onChange(of: selectedDate) { newValue in
                     viewModel.refreshAPOD(with: newValue)
