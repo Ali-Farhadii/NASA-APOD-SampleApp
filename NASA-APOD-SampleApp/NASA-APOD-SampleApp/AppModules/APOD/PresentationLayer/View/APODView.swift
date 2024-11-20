@@ -24,6 +24,7 @@ struct APODView: View {
                     explanation
                 }
                 .padding()
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
             }
             .navigationTitle(selectedDate.toString())
             .toolbar {
