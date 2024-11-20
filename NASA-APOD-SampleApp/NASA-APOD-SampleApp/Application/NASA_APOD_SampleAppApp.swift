@@ -14,7 +14,13 @@ struct NASA_APOD_SampleAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            APODView(viewModel: APODViewModel(repository: repository))
+            TabView {
+                APODView(viewModel: APODViewModel(repository: repository))
+                    .tabItem {
+                        Label("APOD", systemImage: "globe.asia.australia")
+                    }
+            }
         }
     }
+    
 }
