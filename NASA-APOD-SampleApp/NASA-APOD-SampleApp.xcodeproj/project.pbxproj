@@ -21,9 +21,22 @@
 		2256E8B82CE75B99000CD5E6 /* NASA-APOD-SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NASA-APOD-SampleAppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		2256EA4A2CEE2C3F000CD5E6 /* Exceptions for "NASA-APOD-SampleApp" folder in "NASA-APOD-SampleApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2256E8A72CE75B97000CD5E6 /* NASA-APOD-SampleApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2256E8AA2CE75B97000CD5E6 /* NASA-APOD-SampleApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2256EA4A2CEE2C3F000CD5E6 /* Exceptions for "NASA-APOD-SampleApp" folder in "NASA-APOD-SampleApp" target */,
+			);
 			path = "NASA-APOD-SampleApp";
 			sourceTree = "<group>";
 		};
@@ -336,6 +349,7 @@
 				DEVELOPMENT_TEAM = 9FNNS73DWP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NASA-APOD-SampleApp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -368,6 +382,7 @@
 				DEVELOPMENT_TEAM = 9FNNS73DWP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NASA-APOD-SampleApp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -507,6 +522,7 @@
 				DEVELOPMENT_TEAM = 9FNNS73DWP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NASA-APOD-SampleApp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
