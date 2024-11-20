@@ -9,9 +9,9 @@ import Foundation
 
 struct APODDecodableModel: Decodable {
     let title: String
-    let copyright: String
+    let copyright: String?
     let date: String
     let explanation: String
-    let url: String
+    let url: String?
     let mediaType: String
 }

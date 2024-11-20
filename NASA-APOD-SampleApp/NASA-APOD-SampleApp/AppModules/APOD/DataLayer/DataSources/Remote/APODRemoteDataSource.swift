@@ -8,7 +8,7 @@
 import Foundation
 
 protocol APODRemoteDataSource {
-    func fetchAPOD(with date: Date) async throws -> APODBusinessModel
+    func fetchAPOD(with date: String) async throws -> APODBusinessModel
 }
 
 struct APODURLSessionDataSource: APODRemoteDataSource {
@@ -19,18 +19,18 @@ struct APODURLSessionDataSource: APODRemoteDataSource {
         self.networkService = networkService
     }
     
-    func fetchAPOD(with date: Date) async throws -> APODBusinessModel {
-        let apodEndpoint = APODEndpoint()
+    func fetchAPOD(with date: String) async throws -> APODBusinessModel {
+        let apodEndpoint = APODEndpoint(selectedDate: date)
         let response: APODDecodableModel = try await networkService.request(with: apodEndpoint)
         return mapToAPODBusinessModel(response)
     }
     
     func mapToAPODBusinessModel(_ response: APODDecodableModel) -> APODBusinessModel {
         APODBusinessModel(title: response.title,
-                          copyright: response.copyright,
+                          copyright: response.copyright ?? "None",
                           date: response.date,
                           explanation: response.explanation,
-                          url: response.url,
+                          url: response.url ?? "",
                           mediaType: response.mediaType)
     }
 }

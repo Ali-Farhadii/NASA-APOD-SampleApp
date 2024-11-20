@@ -6,63 +6,108 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct APODView: View {
     
     @ObservedObject var viewModel: APODViewModel
-    @State private var showDatePicker: Bool = false
     @State private var selectedDate: Date = Date()
+    @State private var isShowErrorAlert: Bool = false
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 16) {
-                    imageView
-                    
-                    // TODO: Fix duplication of .frame(maxWidth)
-                    Text("Title")
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .font(.title.bold())
-                    
-                    Text("Copyright")
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .font(.subheadline.bold())
-                        .foregroundStyle(.secondary)
-                    
-                    Text("Description")
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .font(.callout)
+                    mediaView
+                    title
+                    copyright
+                    explanation
                 }
                 .padding()
             }
-            .navigationTitle("18 November 2024")
+            .navigationTitle(selectedDate.toString())
             .toolbar {
-                // TODO: Show today only when selected data is not today
                 todayToolbarItem
                 calendarToolbarItem
             }
-            // TODO: task or onAppear?
             .task {
                 viewModel.fetchAPOD(with: selectedDate)
+            }
+            .onChange(of: viewModel.errorModel) { newValue in
+                isShowErrorAlert = newValue != nil
+            }
+            .alert("Something went wrong.",
+                   isPresented: $isShowErrorAlert) {
+                Button("OK") {
+                    isShowErrorAlert = false
+                }
+                Button("Retry") {
+                    viewModel.fetchAPOD(with: selectedDate)
+                }
+            } message: {
+                Text(viewModel.errorModel?.msg ?? "")
             }
         }
     }
     
-    var imageView: some View {
-        AsyncImage(url: viewModel.imageURL) { image in
-            image
-        } placeholder: {
-            VStack {
-                ProgressView()
-                Text("Loading...")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+    var mediaView: some View {
+        VStack {
+            switch viewModel.apodModel.mediaType {
+            case .image:
+                if let url = viewModel.apodModel.url {
+                    getImageView(with: url)
+                }
+            case .video:
+                if let url = viewModel.apodModel.url {
+                    VideoPlayer(player: AVPlayer(url: url))
+                        .frame(height: 250)
+                }
+            case .other:
+                Image(systemName: "photo")
+                    .frame(height: 250)
             }
-            .frame(height: 250)
         }
+    }
+    
+    @ViewBuilder func getImageView(with url: URL) -> some View {
+        CacheAsyncImage(url: url) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(.rect(cornerRadius: 15))
+            } else {
+                VStack {
+                    ProgressView()
+                    Text("Loading...")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(height: 250)
+            }
+        }
+    }
+    
+    var title: some View {
+        Text(viewModel.apodModel.title)
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.title.bold())
+    }
+    
+    var copyright: some View {
+        Text(viewModel.apodModel.copyright)
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.subheadline.bold())
+            .foregroundStyle(.secondary)
+    }
+    
+    var explanation: some View {
+        Text(viewModel.apodModel.explanation)
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.callout)
     }
     
     var calendarToolbarItem: ToolbarItem<Void, some View> {
@@ -77,7 +122,7 @@ struct APODView: View {
                     .blendMode(.destinationOver)
                 }
                 .onChange(of: selectedDate) { newValue in
-                    viewModel.fetchAPOD(with: newValue)
+                    viewModel.refreshAPOD(with: newValue)
                 }
         }
     }
@@ -85,8 +130,10 @@ struct APODView: View {
     var todayToolbarItem: ToolbarItem<Void, some View> {
         ToolbarItem(placement: .topBarLeading) {
             Button("Today") {
-                viewModel.fetchAPOD(with: Date())
+                selectedDate = Date()
+                viewModel.fetchAPOD(with: selectedDate)
             }
+            .disabled(selectedDate == Date())
         }
     }
     
