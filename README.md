@@ -3,6 +3,9 @@
 ## Description
 A simple app which uses the NASA APOD API (https://github.com/nasa/apod-api).
 
+## Screenshots
+<img src="vertical.png" width="200" height="400"> <img src="horizontal.png" width="400" height="250">
+
 ## Technical 
 - SwiftUI base source code<br>
 - MVVM design pattern with help of Coordinator<br>
