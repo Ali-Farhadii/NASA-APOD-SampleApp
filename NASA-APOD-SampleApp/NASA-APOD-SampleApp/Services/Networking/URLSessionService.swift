@@ -7,10 +7,18 @@
 
 import Foundation
 
+protocol URLSessionProtocol {
+    func data(for request: URLRequest) async throws -> (Data, URLResponse)
+}
+extension URLSession: URLSessionProtocol { }
+
 struct URLSessionService: NetworkService {
     
-    //TODO: Make it better for mocking and unit testing
-    let urlSession = URLSession.shared
+    let urlSession: URLSessionProtocol
+    
+    init(urlSession: URLSessionProtocol = URLSession.shared) {
+        self.urlSession = urlSession
+    }
     
     func request<T: Decodable>(with endpoint: Endpoint) async throws -> T {
         guard let urlRequest = endpoint.createURLRequest() else {
