@@ -133,7 +133,7 @@ struct APODView: View {
                 selectedDate = Date()
                 viewModel.fetchAPOD(with: selectedDate)
             }
-            .disabled(selectedDate == Date())
+            .disabled(selectedDate.equalDay(with: Date()))
         }
     }
     
