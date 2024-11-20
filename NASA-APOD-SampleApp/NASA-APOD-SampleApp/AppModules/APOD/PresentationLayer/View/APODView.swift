@@ -16,57 +16,57 @@ struct APODView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                if horizontalSizeClass == .compact {
-                    VStack(spacing: 16) {
-                        mediaView
+        ScrollView {
+            if horizontalSizeClass == .compact {
+                VStack(spacing: 16) {
+                    mediaView
+                    title
+                    date
+                    copyright
+                    explanation
+                }
+                .padding()
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
+            } else {
+                HStack(alignment: .top, spacing: 16) {
+                    mediaView
+                        .frame(width: UIScreen.main.bounds.width / 2)
+                    VStack(alignment: .leading, spacing: 16) {
                         title
+                        date
                         copyright
                         explanation
                     }
-                    .padding()
-                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
-                } else {
-                    HStack(alignment: .top, spacing: 16) {
-                        mediaView
-                            .frame(width: UIScreen.main.bounds.width / 2)
-                        VStack(alignment: .leading, spacing: 16) {
-                            title
-                            copyright
-                            explanation
-                        }
-                        .padding(.horizontal)
-                    }
-                    .padding()
-                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                    .padding(.horizontal)
                 }
-            }
-            .navigationTitle(selectedDate.toString())
-            .toolbar {
-                todayToolbarItem
-                calendarToolbarItem
-            }
-            .task {
-                viewModel.fetchAPOD(with: selectedDate)
-            }
-            .onChange(of: viewModel.errorModel) { newValue in
-                isShowErrorAlert = newValue != nil
-            }
-            .alert("Something went wrong.",
-                   isPresented: $isShowErrorAlert) {
-                Button("OK") {
-                    isShowErrorAlert = false
-                }
-                Button("Retry") {
-                    viewModel.fetchAPOD(with: selectedDate)
-                }
-            } message: {
-                Text(viewModel.errorModel?.msg ?? "")
-                    .foregroundStyle(.primary)
-                    .font(.body)
+                .padding()
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
             }
         }
+        .toolbar {
+            todayToolbarItem
+            calendarToolbarItem
+        }
+        .task {
+            viewModel.fetchAPOD(with: selectedDate)
+        }
+        .onChange(of: viewModel.errorModel) { newValue in
+            isShowErrorAlert = newValue != nil
+        }
+        .alert("Something went wrong.",
+               isPresented: $isShowErrorAlert) {
+            Button("OK") {
+                isShowErrorAlert = false
+            }
+            Button("Retry") {
+                viewModel.fetchAPOD(with: selectedDate)
+            }
+        } message: {
+            Text(viewModel.errorModel?.msg ?? "")
+                .foregroundStyle(.primary)
+                .font(.body)
+        }
+        
     }
     
     var mediaView: some View {
@@ -112,6 +112,14 @@ struct APODView: View {
             .frame(maxWidth: .infinity,
                    alignment: .leading)
             .font(.title.bold())
+            .foregroundStyle(.primary)
+    }
+    
+    var date: some View {
+        Text(selectedDate.toString())
+            .frame(maxWidth: .infinity,
+                   alignment: .leading)
+            .font(.title2.bold())
             .foregroundStyle(.primary)
     }
     
