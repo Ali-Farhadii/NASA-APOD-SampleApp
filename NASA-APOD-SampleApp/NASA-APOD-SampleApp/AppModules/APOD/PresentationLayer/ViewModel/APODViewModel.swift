@@ -41,15 +41,26 @@ class APODViewModel: ObservableObject {
     }
     
     private func mapToAPODPresentationModel(with response: APODBusinessModel) -> APODPresentationModel {
-        //TODO: Error handling for invalid URL
-        guard let imageURL = URL(string: response.url) else { return .placeholder() }
+        guard let imageURL = URL(string: response.url),
+                MediaType(rawValue: response.mediaType) != .other else {
+            
+            return MediaType(rawValue: response.mediaType) == .other ?
+            APODPresentationModel(title: response.title,
+                                  copyright: "Copyright: \(response.copyright)",
+                                  date: response.date,
+                                  explanation: response.explanation,
+                                  url: nil,
+                                  mediaType: .other) : .placeholder()
+        }
         
-        return APODPresentationModel(title: response.title,
-                                     copyright: "Copyright: \(response.copyright)",
-                                     date: response.date,
-                                     explanation: response.explanation,
-                                     url: imageURL,
-                                     mediaType: MediaType(rawValue: response.mediaType) ?? .other)
+        return APODPresentationModel(
+            title: response.title,
+            copyright: "Copyright: \(response.copyright)",
+            date: response.date,
+            explanation: response.explanation,
+            url: imageURL,
+            mediaType: MediaType(rawValue: response.mediaType) ?? .other
+        )
     }
     
     private func handleError(_ error: NetworkError) {

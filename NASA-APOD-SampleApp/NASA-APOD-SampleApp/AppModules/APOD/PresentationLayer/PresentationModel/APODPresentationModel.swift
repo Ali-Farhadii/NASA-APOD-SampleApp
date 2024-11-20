@@ -15,13 +15,12 @@ struct APODPresentationModel {
     let url: URL?
     let mediaType: MediaType
     
-    //TODO: Better practice for placeholder or optional
     static func placeholder() -> Self {
         .init(title: "Title",
               copyright: "Copyright",
               date: "Date",
               explanation: "Explanation",
               url: nil,
-              mediaType: .image)
+              mediaType: .other)
     }
 }

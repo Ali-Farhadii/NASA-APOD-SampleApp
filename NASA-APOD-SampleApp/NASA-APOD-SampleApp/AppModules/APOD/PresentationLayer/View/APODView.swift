@@ -30,7 +30,6 @@ struct APODView: View {
                 todayToolbarItem
                 calendarToolbarItem
             }
-            // TODO: task or onAppear?
             .task {
                 viewModel.fetchAPOD(with: selectedDate)
             }
