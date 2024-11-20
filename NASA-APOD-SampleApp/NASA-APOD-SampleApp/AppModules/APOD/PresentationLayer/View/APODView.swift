@@ -15,7 +15,7 @@ struct APODView: View {
     @State private var isShowErrorAlert: Bool = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
                     mediaView
