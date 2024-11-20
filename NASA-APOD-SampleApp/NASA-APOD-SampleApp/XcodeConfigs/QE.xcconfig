@@ -1,0 +1,12 @@
+//
+//  QE.xcconfig
+//  NASA-APOD-SampleApp
+//
+//  Created by Ali Farhadi on 11/19/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_KEY = egq8Cs4NeS3HKBl99YzEmYbO3kz02ZNhmHMZQV1e
+BASE_URL = https:/$()/api.nasa.gov
